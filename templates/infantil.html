@@ -1,0 +1,20 @@
+<!-- Indica que esta plantilla hereda de la plantilla base (reutiliza la estructura de base.html) -->
+{% extends 'base.html' %}
+
+<!-- Define el título de la pestaña -->
+{% block title %}Infantil{% endblock %}
+
+<!-- Inicia el bloque 'content' donde irá el contenido de la página -->
+{% block content %}
+    <!-- Encabezado principal de la página -->
+    <h1>Películas Infantiles</h1>
+    <!-- Lista de películas recibidas desde app.py -->
+    <ul>
+        <!-- Bucle Jinja: recorre las películas de la categoría infantil -->
+        {% for pelicula in peliculas %}
+            <!-- Muestra el título y la sinopsis -->
+            <li><strong>{{ pelicula.titulo }}</strong>: {{ pelicula.sinopsis }}</li>
+        {% endfor %}
+    </ul>
+<!-- Cierra el bloque 'content' -->
+{% endblock %}

@@ -1,0 +1,33 @@
+<!--decñara que es un documento HTML5-->
+<!DOCTYPE html>
+<!--elemento raiz del documento; lang indica el idioma-->
+<html lang="es">
+<head>
+    <!--define la codificacion de caracteres(utf-8)-->
+    <meta charset="UTF-8">
+    <!--hace que la pagina sea responsive en dispositivos moviles-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--bloque de jinja para que las plantillas hijas puedan establecer el titulo-->
+    <title>{% block title %}Menú de Películas{% endblock %} | Menú de Películas</title>
+    <!--enlace a la hoja de estilos ubicada en la carpeta static(funcion url_for de flask)-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!--barra de navegacion principal-->
+    <nav>
+        <!--enlaces que usan url_for para generar las URLs segun las funciones vistas en app.py-->
+        <a href="{{ url_for('index') }}">Inicio</a> | 
+        <a href="{{ url_for('suspenso') }}">Suspenso</a> | 
+        <a href="{{ url_for('terror') }}">Terror</a> | 
+        <a href="{{ url_for('romance') }}">Romance</a> | 
+        <a href="{{ url_for('infantil') }}">Infantil</a>
+    </nav>
+    <!--linea orizontal de separacion-->
+    <hr>
+    <!--contenedor principal donde se insertara el contenido especifico de cada pagina-->
+    <main>
+        <!--bloque de jinja; las plantillas que extieneden bae.html define este bloque-->
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

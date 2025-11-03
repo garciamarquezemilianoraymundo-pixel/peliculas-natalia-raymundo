@@ -1,0 +1,20 @@
+<!-- Indica que esta plantilla hereda de base.html para reutilizar la estructura común (head, nav, main) -->
+{% extends 'base.html' %}
+
+<!-- Define el contenido que reemplaza el bloque 'title' en base.html; aquí el título de la pestaña será "Suspenso" -->
+{% block title %}Suspenso{% endblock %}
+
+<!-- Abre el bloque 'content' que será insertado dentro del <main> de base.html -->
+{% block content %}
+    <!-- Encabezado visible en la página que indica la sección mostrada -->
+    <h1>Películas de Suspenso</h1>
+    <!-- Lista no ordenada que contendrá las películas recibidas desde app.py -->
+    <ul>
+        <!-- Bucle jinja que itera sobre la variable 'peliculas' pasada desde la vista -->
+        {% for pelicula in peliculas %}
+            <!-- Cada elemento de la lista muestra el título en negrita y la sinopsis -->
+            <li><strong>{{ pelicula.titulo }}</strong>: {{ pelicula.sinopsis }}</li>
+        {% endfor %}
+    </ul>
+<!-- Fin del bloque 'content' -->
+{% endblock %}

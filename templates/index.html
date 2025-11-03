@@ -1,0 +1,130 @@
+<!--indica que esta plantilla extiende de templates/base.html para reutlizar la estructura-->
+{% extends 'base.html' %}
+
+<!--bloque jinja que establece el titulo de la pagina (reemplaza el bloque title de base.html)-->
+{%block title %}Inicio{% endblock %}
+
+<!--inicio del bloque  content que se insertara dentro de <main> en base.html-->
+    {% block content %}
+    <!--inicio de estlos CSSlocales (se aplican solo a esta plantilla)-->
+    <style>
+        /*variables CSS:colores y radios reutiizables*/
+        :root{
+            --fondo: #85c2ff; /*azul tenue*/
+            --texto: #0064c9; /*color texto principal*/
+            --acento:#3b8ad8; /* color acento*/ 
+            --card: #ffffffcc; /*fonfo tarjeta semitransaprente*/
+            --radio: 10px;      /*borde redondeado*/
+        }
+        /*estilos para el elemento body: color de fonfo, tipografia y espaciado*/
+        body{
+            background-color: var(--fondo);
+            font-family: "Segoe UI", roboto, "Helvetica Neue", Arial, sans-serif;
+            color: var(--texto);
+            margin: 0;
+            padding: 2rem;
+        }
+        /*contenedor principal centrado y con ancho maximo*/
+        main{
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        /* estilo para el titulo principal*/
+        h1{
+            font-size: 2.2rem;
+            margin-bottom: 0.25rem;
+            letter-spacing: 0.5px;
+          }
+          /*estilo para parrafos: tamaño y margen inferior  */
+          p{ font-size: 1.05rem; margin-bottom: 1.25rem;}
+          /*tarejta que contiene el contenido principla (fonfo, paddinf, sombra)*/
+          .card{
+            background: var(--card);
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radio);
+            box-shadow: 0 6px 18px rgba(244, 250, 255, 0.08);
+            }
+            /*estilo para etiquetas (label)*/
+            label {display: block; margin-bottom: 0.5rem; font-weight: 600;}
+            /*estilos para el select del menu desplegable*/
+            select#categoria{
+                width: 100%;
+                max-width: 420px;
+                padding: 0.6rem 0.7rem;
+                font-size: 1rem;
+                border-radius: 8px;
+                border: 1px solid #cfe8ff;
+                background: linear-gradient(180deg, #fff, #f7fbff);
+                color: var(--texto);
+                box-shadow: inset0 1px 0 rgba(255, 255, 255,0.6);
+                transition: box-shadow .15s ease, transform .08s ease;
+            }
+            /*estilo cuando el select tiene foco */
+            select#categoria:focus{
+                outline: none;
+                box-shadow: 0 0 0 4px rgba(30, 144, 255 0.12);
+                transform: translateY(-1px);
+            }
+            /*contenedor para enlaces alternativos (se javascripts esta desactivado)*/
+            .links{
+                margin-top:1rem ;
+                font-size: 0.95rem;
+            }
+            /*estilo para los enlaces dentro de .links */
+            .link a {color: var(--acento); text-decoration: none;}
+            .link a:hover{text-decoration: underline;}
+            /*ajustes responsivos para pantallas pequñas */
+            @media (max-width:520px){
+                body{padding: 1rem;}
+                h1{font-size: 1.6rem;}
+            }
+        </style>
+
+        <!--tarjeta principal que contiene el contenido visble de la pagina-->
+        <main class="card">
+            <!--titulo visible en la pagina-->
+            <h1>Bienvenido al menu de peliculas</h1>
+            <p>seleccione una categoria disponible</p>
+            <p>natalia ayala rojas-raymundo garcia           307</p>
+            <!--etiquetas asociadas al select-->
+            <label for="categoria:"></label>
+            <!--select con opciones que navegan a las rutas correspondientes-->
+            <select id="categoria" name="categoria" aria-label="seleccionar categoria">
+                <!--opcion por defecto vacia-->
+                <option value="">--Elige una categoria--</option>
+                <!--opciones que apuntan a las rutas definidas en app.py-->
+                <option value="/infantil">infantil</option>
+                <option value="/romance">romance</option>
+                <option value="/suspenso">suspenso</option>
+                <option value="/terror">terror</option>
+                <option value="/otro">otro</option>
+
+            </select>
+
+            <!--bloque con enlaces alternativos para usuarios sin javascritpt-->
+            <div class="links">
+                <noscript>
+                    <!--mensaje informativo-->
+                    <p>si javascripts esta desactivado, usa los enlaces</p>
+                    <!--lista de enlaces directos a cada categoria-->
+                    <ul>
+                        <li><a href="/infantil">infantil</a></li>
+                        <li><a href="/romance">romance</a></li>
+                        <li><a href="/suspenso">suspenso</a></li>
+                        <li><a href="/terror">terror</a></li>
+
+                    </ul>
+                </noscript>
+            </div>
+        </main>
+
+        <!--scripts pequeño que redirige al usuario cuando cambia la opcion del select-->
+        <script>
+            /*selecciona el elemento select por su id y añade un listener al evento change.
+            Si la opcion señalada tiene valor (ruta), cambia la ubicacion del navegador*/
+            document.getElementById('categoria').addEventListener('change', function(){
+                if (this.value) window.location.href=this.value;
+            });
+        </script>
+<!--fin del bloque content que sera insertado en base.html-->
+{% endblock %}
